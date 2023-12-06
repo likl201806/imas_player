@@ -98,6 +98,7 @@ internal class ImaPlayerView(
                 "view_created" -> viewCreated(result)
                 "seek_to" -> seekTo(call.arguments as Int?, result)
                 "set_volume" -> setVolume(call.arguments as Double?, result)
+                "set_speed" -> setSpeed(call.arguments as Double?, result)
                 "get_video_info" -> getVideoInfo(result)
                 "get_ad_info" -> getAdInfo(result)
                 "skip_ad" -> skipAd(result)
@@ -270,6 +271,17 @@ internal class ImaPlayerView(
         }
 
         result.success(value != null)
+    }
+
+    private fun setSpeed(value: Double?, result: MethodChannel.Result) {
+        if (value != null && value > 0.0) {
+            // 确保速度值在有效范围内，大于 0
+            val speed = 0.0.coerceAtLeast(value).toFloat()
+            player.setPlaybackSpeed(speed)
+            result.success(true)
+        } else {
+            result.success(false)
+        }
     }
 
     private fun skipAd(result: MethodChannel.Result) {
