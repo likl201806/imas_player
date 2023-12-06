@@ -301,6 +301,18 @@ class ImaPlayerView: NSObject, FlutterPlatformView, FlutterStreamHandler, IMAAds
         case "set_volume":
             setVolume(value: call.arguments as! Double, result: result)
             break;
+        
+        case "get_volume":
+            getVolume(result: result)
+            break;
+        
+        case "set_speed":
+            setSpeed(value: call.arguments as! Double, result: result)
+            break;
+
+        case "get_speed":
+            getSpeed(result: result)
+            break;
             
         case "get_video_info":
             getVideoInfo(result: result)
@@ -418,6 +430,25 @@ class ImaPlayerView: NSObject, FlutterPlatformView, FlutterStreamHandler, IMAAds
     private func setVolume(value: Double, result: FlutterResult) {
         player.volume = Float(value)
         result(true)
+    }
+
+    private func getVolume(result: FlutterResult){
+        let volumeV = Double(player.volume)
+        
+        result(volumeV)
+    }
+    
+    private func setSpeed(value: Double, result: FlutterResult) {
+        if (value > 0.0) {
+            player.rate = Float(value)
+        }
+        result(true)
+    }
+
+    private func getSpeed(result: FlutterResult){
+        let speedV = Double(player.rate)
+        
+        result(speedV)
     }
     
     private func skipAd(result: FlutterResult){
