@@ -268,6 +268,7 @@ internal class ImaPlayerView(
     }
 
     private fun setVolume(value: Double?, result: MethodChannel.Result) {
+        println("-------volume $value")
         if (value != null) {
             player.volume = 0.0.coerceAtLeast(1.0.coerceAtMost(value)).toFloat()
         }
