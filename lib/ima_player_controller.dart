@@ -106,6 +106,31 @@ class ImaPlayerController {
     return result ?? false;
   }
 
+  Future<double> getVolume() async {
+    final result = await _methodChannel?.invokeMethod<double>(
+      'get_volume',
+    );
+
+    return result ?? 1.0;
+  }
+
+  Future<bool> setSpeed(double volume) async {
+    final result = await _methodChannel?.invokeMethod<bool>(
+      'set_speed',
+      volume,
+    );
+
+    return result ?? false;
+  }
+
+  Future<double> getSpeed() async {
+    final result = await _methodChannel?.invokeMethod<double>(
+      'get_speed',
+    );
+
+    return result ?? 1.0;
+  }
+
   Future<ImaVideoInfo> getVideoInfo() async {
     final info = await _methodChannel?.invokeMapMethod<String, dynamic>(
       'get_video_info',
