@@ -23,9 +23,6 @@ class ImaPlayerController {
   final _onPlayerEventController = StreamController<ImaPlayerEvents?>();
   late final onPlayerEvent = _onPlayerEventController.stream;
 
-  final _onPositionEventController = StreamController<double?>();
-  late final onPositionEvent = _onPositionEventController.stream;
-
   final _onAdsEventController = StreamController<ImaAdsEvents>();
   late final onAdsEvent = _onAdsEventController.stream;
 
@@ -58,11 +55,6 @@ class ImaPlayerController {
             case 'player':
               _onPlayerEventController.add(
                 ImaPlayerEvents.fromString(value),
-              );
-              break;
-            case 'position':
-              _onPositionEventController.add(
-                value,
               );
               break;
           }
