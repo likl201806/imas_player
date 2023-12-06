@@ -43,7 +43,6 @@ internal class ImaPlayerView(
     private enum class EventType {
         ADS,
         PLAYER,
-        POSITION
     }
 
     private val tag = "IMA_PLAYER/$id"
@@ -226,14 +225,6 @@ internal class ImaPlayerView(
         super.onIsPlayingChanged(isPlaying)
         println("---android onIsPlayingChanged");
         sendEvent(EventType.PLAYER, if (isPlaying) "PLAYING" else "PAUSED")
-    }
-
-    override fun onPositionDiscontinuity(reason: Int) {
-        super.onPositionDiscontinuity(reason)
-        println("---android onPositionDiscontinuity");
-        val currentPosition = player.currentPosition // 获取当前播放位置
-        sendEvent(EventType.POSITION, currentPosition.toDouble())
-        // 可以在这里添加更多自定义逻辑
     }
 
     private fun preparePlayer() {
