@@ -223,6 +223,7 @@ internal class ImaPlayerView(
 
     override fun onIsPlayingChanged(isPlaying: Boolean) {
         super.onIsPlayingChanged(isPlaying)
+        println("---android onIsPlayingChanged");
         sendEvent(EventType.PLAYER, if (isPlaying) "PLAYING" else "PAUSED")
     }
 
