@@ -268,7 +268,6 @@ internal class ImaPlayerView(
     }
 
     private fun setVolume(value: Double?, result: MethodChannel.Result) {
-        println("-------volume $value")
         if (value != null) {
             player.volume = 0.0.coerceAtLeast(1.0.coerceAtMost(value)).toFloat()
         }
@@ -293,7 +292,7 @@ internal class ImaPlayerView(
     }
 
     private fun getSpeed(result: MethodChannel.Result) {
-        val speed = player.playbackParameters.speed.toDouble()  // 获取当前的播放速度并转换为 Double
+        val speed = player.playbackParameters.speed.toDouble()
         result.success(speed)
     }
 
