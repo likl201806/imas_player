@@ -215,6 +215,7 @@ internal class ImaPlayerView(
 
     override fun onPlaybackStateChanged(playbackState: Int) {
         super.onPlaybackStateChanged(playbackState)
+        println("---android onPlaybackStateChanged");
         when (playbackState) {
             ExoPlayer.STATE_READY -> sendEvent(EventType.PLAYER, "READY")
             ExoPlayer.STATE_BUFFERING -> sendEvent(EventType.PLAYER, "BUFFERING")
@@ -229,8 +230,9 @@ internal class ImaPlayerView(
 
     override fun onPositionDiscontinuity(reason: Int) {
         super.onPositionDiscontinuity(reason)
+        println("---android onPositionDiscontinuity");
         val currentPosition = player.currentPosition // 获取当前播放位置
-        sendEvent(EventType.PLAYER, currentPosition.toDouble())
+        sendEvent(EventType.POSITION, currentPosition.toDouble())
         // 可以在这里添加更多自定义逻辑
     }
 
