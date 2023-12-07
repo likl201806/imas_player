@@ -101,23 +101,6 @@ class ImaPlayerManager private constructor(
         preparePlayer()
     }
 
-    // 单例实现
-    companion object {
-        private var instance: ImasPlayer? = null
-
-        @RequiresApi(Build.VERSION_CODES.N)
-        fun getInstance(
-            context: Context,
-            args: Map<String, Any>?,
-            messenger: BinaryMessenger
-        ): ImasPlayer {
-            if (instance == null) {
-                instance = ImasPlayer(context, args, messenger)
-            }
-            return instance!!
-        }
-    }
-
     // 重写的 Player.Listener 方法
     override fun onPlaybackStateChanged(playbackState: Int) {
         super.onPlaybackStateChanged(playbackState)
