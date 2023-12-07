@@ -28,8 +28,8 @@ class ImaPlayerController {
 
   StreamSubscription? _eventChannelListener;
   void _attach(int viewId) {
-    _methodChannel = MethodChannel('gece.dev/imaplayer/$viewId');
-    _eventChannel = EventChannel('gece.dev/imaplayer/$viewId/events');
+    _methodChannel = MethodChannel('gece.dev/imas_player_method_channel');
+    _eventChannel = EventChannel('gece.dev/imas_player_event_channel');
 
     final stream = _eventChannel!.receiveBroadcastStream();
 
@@ -65,6 +65,21 @@ class ImaPlayerController {
 
   Future<void> _onViewCreated() async {
     await _methodChannel?.invokeMethod('view_created');
+  }
+
+  Future<void> initPlayer() async {
+    final creationParams = {
+      'ima_tag': imaTag,
+      'is_muted': options.muted,
+      'is_mixed': options.isMixWithOtherMedia,
+      'auto_play': options.autoPlay,
+      'video_url': videoUrl,
+      'controller_auto_show': options.controllerAutoShow,
+      'controller_hide_on_touch': options.controllerHideOnTouch,
+      'show_playback_controls': options.showPlaybackControls,
+      'ads_loader_settings': adsLoaderSettings.toJson(),
+    };
+    await _methodChannel?.invokeMethod('initialize', creationParams);
   }
 
   Future<bool> play({String? videoUrl}) async {
