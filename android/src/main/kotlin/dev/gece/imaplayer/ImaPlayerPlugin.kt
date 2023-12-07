@@ -18,7 +18,7 @@ class ImaPlayerPlugin : FlutterPlugin {
             "gece.dev/imaplayer_view", ImaPlayerViewFactory(binding.binaryMessenger)
         )
 
-        imasPlayer = ImaPlayerManager.getInstance(binding.applicationContext, null, binding.binaryMessenger)
+        imasPlayer = ImaPlayerManager.getInstance(binding.applicationContext, binding.binaryMessenger)
         // 创建并设置 MethodChannel
         methodChannel = MethodChannel(binding.binaryMessenger, "gece.dev/imas_player_method_channel")
         methodChannel?.setMethodCallHandler { call, result ->

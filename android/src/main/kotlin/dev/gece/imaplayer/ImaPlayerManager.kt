@@ -49,6 +49,21 @@ class ImaPlayerManager private constructor(
     private var isMixed: Boolean = true
     private var autoPlay: Boolean = true
 
+    companion object {
+        private var instance: ImaPlayerManager? = null
+
+        @RequiresApi(Build.VERSION_CODES.N)
+        fun getInstance(
+            context: Context,
+            messenger: BinaryMessenger
+        ): ImaPlayerManager {
+            if (instance == null) {
+                instance = ImaPlayerManager(context, messenger)
+            }
+            return instance!!
+        }
+    }
+
     fun initialize(args: Map<String, Any>?) {
         if (args != null){
             videoUrl = Uri.parse(args["video_url"] as String?)
