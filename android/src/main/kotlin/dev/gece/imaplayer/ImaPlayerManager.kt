@@ -65,6 +65,7 @@ class ImaPlayerManager private constructor(
     }
 
     fun initialize(args: Map<String, Any>?) {
+        println("---android initialize")
         if (args != null){
             videoUrl = Uri.parse(args["video_url"] as String?)
             imaTag = Uri.parse(args["ima_tag"] as String?)
