@@ -70,7 +70,7 @@ Used ExoPlayer SDK for Android and AVPlayer for iOS.
     controller.skipAd() -> Future<bool>
     controller.setVolume(double volume) -> Future<bool>
     controller.getVolume() -> Future<double>
-    controller.setSpeed(double volume) -> Future<bool>
+    controller.setSpeed(double speed) -> Future<bool>
     controller.getSpeed() -> Future<double>
 
     /// Observables
