@@ -119,6 +119,7 @@ class ImaPlayerManager private constructor(
     public fun play(videoUrl: String?, result: MethodChannel.Result) {
         println("---android videoUrl: $videoUrl")
         if (videoUrl != null) {
+            println("---android setVideoUrl: $videoUrl")
             this.videoUrl = Uri.parse(videoUrl)
             player.stop()
             player.clearMediaItems()
