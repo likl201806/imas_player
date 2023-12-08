@@ -131,10 +131,10 @@ class ImaPlayerController {
     return result ?? 1.0;
   }
 
-  Future<bool> setSpeed(double volume) async {
+  Future<bool> setSpeed(double speed) async {
     final result = await _methodChannel?.invokeMethod<bool>(
       'set_speed',
-      volume,
+      speed,
     );
 
     return result ?? false;

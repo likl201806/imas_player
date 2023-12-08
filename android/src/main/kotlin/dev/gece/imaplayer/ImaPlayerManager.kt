@@ -65,7 +65,6 @@ class ImaPlayerManager private constructor(
     }
 
     fun initialize(args: Map<String, Any>?) {
-        println("---android initialize")
         if (args != null){
             videoUrl = Uri.parse(args["video_url"] as String?)
             imaTag = Uri.parse(args["ima_tag"] as String?)
@@ -106,14 +105,14 @@ class ImaPlayerManager private constructor(
     override fun onPlaybackStateChanged(playbackState: Int) {
         super.onPlaybackStateChanged(playbackState)
         when (playbackState) {
-            ExoPlayer.STATE_READY -> sendEvent("READY")
-            ExoPlayer.STATE_BUFFERING -> sendEvent("BUFFERING")
+            ExoPlayer.STATE_READY -> sendEvent("ready")
+            ExoPlayer.STATE_BUFFERING -> sendEvent("buffering")
         }
     }
 
     override fun onIsPlayingChanged(isPlaying: Boolean) {
         super.onIsPlayingChanged(isPlaying)
-        sendEvent(if (isPlaying) "PLAYING" else "PAUSED")
+        sendEvent(if (isPlaying) "playing" else "pause")
     }
 
     private fun preparePlayer() {
