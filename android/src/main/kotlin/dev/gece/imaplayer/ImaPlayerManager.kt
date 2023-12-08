@@ -84,6 +84,8 @@ class ImaPlayerManager private constructor(
 
         preparePlayer()
 
+        println("---android success init player")
+
         result.success(true)
     }
 
@@ -103,6 +105,7 @@ class ImaPlayerManager private constructor(
 
     private fun preparePlayer() {
         if (videoUrl != null && imaTag != null){
+            println("---android url: $videoUrl")
             val mediaItem = MediaItem.Builder().setUri(videoUrl)
                 .setAdsConfiguration(imaTag?.let {
                     MediaItem.AdsConfiguration.Builder(it).build()
@@ -114,6 +117,7 @@ class ImaPlayerManager private constructor(
     }
 
     public fun play(videoUrl: String?, result: MethodChannel.Result) {
+        println("---android videoUrl: $videoUrl")
         if (videoUrl != null) {
             this.videoUrl = Uri.parse(videoUrl)
             player.stop()
