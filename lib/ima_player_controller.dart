@@ -25,9 +25,6 @@ class ImaPlayerController {
   final _onPlayerEventController = StreamController<ImaPlayerEvents?>();
   late final onPlayerEvent = _onPlayerEventController.stream;
 
-  final _onAdsEventController = StreamController<ImaAdsEvents>();
-  late final onAdsEvent = _onAdsEventController.stream;
-
   StreamSubscription? _eventChannelListener;
   void attach() {
     _methodChannel = MethodChannel('gece.dev/imas_player_method_channel');
@@ -37,30 +34,9 @@ class ImaPlayerController {
 
     _eventChannelListener = stream.listen(
       (event) {
-        if (event is Map && event.containsKey('type')) {
-          final value = event["value"];
-
-          switch (event['type']) {
-            case 'ads':
-              if (value is Map) {
-                _onAdsEventController.addError(value, StackTrace.current);
-              } else {
-                _onAdsEventController.add(
-                  ImaAdsEvents.fromString(
-                    (value as String?)?.toUpperCase().replaceAll(' ', '_'),
-                  ),
-                );
-              }
-
-              break;
-
-            case 'player':
-              _onPlayerEventController.add(
-                ImaPlayerEvents.fromString(value),
-              );
-              break;
-          }
-        }
+        _onPlayerEventController.add(
+          ImaPlayerEvents.fromString(event),
+        );
       },
     );
   }
@@ -79,7 +55,6 @@ class ImaPlayerController {
       'controller_auto_show': options.controllerAutoShow,
       'controller_hide_on_touch': options.controllerHideOnTouch,
       'show_playback_controls': options.showPlaybackControls,
-      'ads_loader_settings': adsLoaderSettings.toJson(),
     };
     await _methodChannel?.invokeMethod('initialize', creationParams);
   }
@@ -156,18 +131,9 @@ class ImaPlayerController {
     return ImaVideoInfo.fromJson(Map<String, dynamic>.from(info ?? {}));
   }
 
-  Future<ImaAdInfo> getAdInfo() async {
-    final info = await _methodChannel?.invokeMapMethod<String, dynamic>(
-      'get_ad_info',
-    );
-
-    return ImaAdInfo.fromJson(Map<String, dynamic>.from(info ?? {}));
-  }
-
   void dispose() {
     _methodChannel?.invokeMethod('dispose');
     _eventChannelListener?.cancel();
-    _onAdsEventController.close();
     _onPlayerEventController.close();
   }
 }

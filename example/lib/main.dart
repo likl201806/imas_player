@@ -91,11 +91,6 @@ class _PlayerScreenState extends State<PlayerScreen> {
     ),
   );
 
-  Future<void> getAdInfoHandler() async {
-    adInfo = await controller.getAdInfo();
-    setState(() {});
-  }
-
   Future<void> getVideoInfoHandler() async {
     videoInfo = await controller.getVideoInfo();
     setState(() {});
@@ -116,17 +111,9 @@ class _PlayerScreenState extends State<PlayerScreen> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      getAdInfoHandler();
       getVideoInfoHandler();
 
       // Navigator.pop(context);
-    });
-
-    controller.onAdsEvent.listen((event) async {
-      if (event == ImaAdsEvents.CONTENT_RESUME_REQUESTED ||
-          event == ImaAdsEvents.CONTENT_PAUSE_REQUESTED) {
-        updateAspectRatio();
-      }
     });
   }
 
@@ -179,10 +166,6 @@ class _PlayerScreenState extends State<PlayerScreen> {
           FilledButton(
             onPressed: () => controller.seekTo(const Duration(seconds: 10)),
             child: Text('SEEK TO (10 SEC)'),
-          ),
-          FilledButton(
-            onPressed: getAdInfoHandler,
-            child: Text('GET AD INFO'),
           ),
           FilledButton(
             onPressed: getVideoInfoHandler,

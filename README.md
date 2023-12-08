@@ -46,7 +46,6 @@ Used ExoPlayer SDK for Android and AVPlayer for iOS.
 | videoUrl                        | String                                            | YES      | -                         |
 | imaTag                          | String?                                           | NO       | -                         |
 | options                         | `ImaPlayerOptions`                                | NO       | `ImaPlayerOptions()`      |
-| adsLoaderSettings               | `ImaAdsLoaderSettings`                            | NO       | `ImaAdsLoaderSettings()`  |
 
 
 ## ImaAdsLoaderSettings - Constructor Arguments
@@ -74,7 +73,6 @@ Used ExoPlayer SDK for Android and AVPlayer for iOS.
     controller.getSpeed() -> Future<double>
 
     /// Observables
-    controller.onAdsEvent -> Stream<ImaAdsEvents>
     controller.onPlayerEvent -> Stream<ImaPlayerEvents>
 
     /// Variables
