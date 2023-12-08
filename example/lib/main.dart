@@ -151,15 +151,12 @@ class _PlayerScreenState extends State<PlayerScreen> {
             child: Text('PLAY ANOTHER VIDEO'),
           ),
           FilledButton(
-            onPressed: controller.skipAd,
-            child: Text('SKIP AD'),
-          ),
-          FilledButton(
             onPressed: () => controller.setVolume(0.2),
             child: Text('SET VOLUME (0.2)'),
           ),
           FilledButton(
-            onPressed: () => controller.seekTo(const Duration(seconds: 10)),
+            onPressed: () =>
+                controller.seekTo(duration: const Duration(seconds: 10)),
             child: Text('SEEK TO (10 SEC)'),
           ),
           FilledButton(
