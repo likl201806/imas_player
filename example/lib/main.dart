@@ -72,7 +72,6 @@ class PlayerScreen extends StatefulWidget {
 class _PlayerScreenState extends State<PlayerScreen> {
   var aspectRatio = 16 / 9;
   ImaVideoInfo? videoInfo;
-  ImaAdInfo? adInfo;
 
   final controller = ImaPlayerController(
     videoUrl:
@@ -84,10 +83,6 @@ class _PlayerScreenState extends State<PlayerScreen> {
       autoPlay: false,
       isMixWithOtherMedia: false,
       showPlaybackControls: true,
-    ),
-    adsLoaderSettings: const ImaAdsLoaderSettings(
-      autoPlayAdBreaks: true,
-      language: 'tr',
     ),
   );
 
@@ -173,8 +168,6 @@ class _PlayerScreenState extends State<PlayerScreen> {
           ),
           const Divider(),
           Text(videoInfo.toString()),
-          const Divider(),
-          Text(adInfo.toString())
         ],
       ),
     );
