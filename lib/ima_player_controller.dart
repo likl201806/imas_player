@@ -74,7 +74,7 @@ class ImaPlayerController {
     return result ?? false;
   }
 
-  Future<bool> seekTo({int? index = null, required Duration duration}) async {
+  Future<bool> seekTo({int? index = 0, required Duration duration}) async {
     bool result = false;
     if (index == null) {
       result = await _methodChannel?.invokeMethod<bool>('seek_to', {
