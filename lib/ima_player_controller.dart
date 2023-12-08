@@ -5,17 +5,19 @@ part of ima_player;
 typedef ViewCreatedCallback = void Function();
 
 class ImaPlayerController {
+  final String videoUrl;
+  final String? imaTag;
+  final ImaPlayerOptions options;
+  final ImaAdsLoaderSettings adsLoaderSettings;
+
   ImaPlayerController({
     required this.videoUrl,
     this.imaTag,
     this.options = const ImaPlayerOptions(),
     this.adsLoaderSettings = const ImaAdsLoaderSettings(),
-  });
-
-  final String videoUrl;
-  final String? imaTag;
-  final ImaPlayerOptions options;
-  final ImaAdsLoaderSettings adsLoaderSettings;
+  }) {
+    attach();
+  }
 
   MethodChannel? _methodChannel;
   EventChannel? _eventChannel;
@@ -27,7 +29,7 @@ class ImaPlayerController {
   late final onAdsEvent = _onAdsEventController.stream;
 
   StreamSubscription? _eventChannelListener;
-  void _attach(int viewId) {
+  void attach() {
     _methodChannel = MethodChannel('gece.dev/imas_player_method_channel');
     _eventChannel = EventChannel('gece.dev/imas_player_event_channel');
 
@@ -63,7 +65,7 @@ class ImaPlayerController {
     );
   }
 
-  Future<void> _onViewCreated() async {
+  Future<void> onViewCreated() async {
     await _methodChannel?.invokeMethod('view_created');
   }
 

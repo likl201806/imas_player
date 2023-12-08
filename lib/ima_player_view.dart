@@ -39,8 +39,8 @@ class _ImaPlayerView extends StatelessWidget {
           )
             ..addOnPlatformViewCreatedListener((id) {
               params.onPlatformViewCreated(id);
-              controller._attach(id);
-              controller._onViewCreated();
+              controller.attach();
+              controller.onViewCreated();
             })
             ..create();
         },
@@ -60,8 +60,8 @@ class _ImaPlayerView extends StatelessWidget {
         gestureRecognizers: gestureRecognizers,
         creationParamsCodec: const StandardMessageCodec(),
         onPlatformViewCreated: (id) {
-          controller._attach(id);
-          controller._onViewCreated();
+          controller.attach();
+          controller.onViewCreated();
         },
       );
     }
