@@ -11,7 +11,7 @@ class _ImaPlayerView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const viewType = 'gece.dev/imaplayer';
+    const viewType = 'gece.dev/imaplayer_view';
 
     final creationParams = {
       'ima_tag': controller.imaTag,
@@ -39,8 +39,6 @@ class _ImaPlayerView extends StatelessWidget {
           )
             ..addOnPlatformViewCreatedListener((id) {
               params.onPlatformViewCreated(id);
-              controller.attach();
-              controller.onViewCreated();
             })
             ..create();
         },
