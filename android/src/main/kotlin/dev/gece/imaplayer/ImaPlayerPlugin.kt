@@ -31,7 +31,11 @@ class ImaPlayerPlugin : FlutterPlugin {
                     val args = call.arguments as Map<String, Any>?
                     imasPlayer?.initialize(args, result)
                 }
-                "play" -> imasPlayer?.play(call.arguments as String?, result)
+                "play" -> {
+                    var videoUrl = call.arguments as String?
+                    println("---android plugin videoUrl: $videoUrl")
+                    imasPlayer?.play(videoUrl, result)
+                }
                 "pause" -> imasPlayer?.pause(result)
                 "stop" -> imasPlayer?.stop(result)
                 "view_created" -> imasPlayer?.viewCreated(result)
