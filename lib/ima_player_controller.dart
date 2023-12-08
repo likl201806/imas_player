@@ -74,26 +74,19 @@ class ImaPlayerController {
     return result ?? false;
   }
 
-  Future<bool> seekTo({int? index = 0, required Duration duration}) async {
-    bool result = false;
-    if (index == null) {
-      result = await _methodChannel?.invokeMethod<bool>('seek_to', {
-            'position': Platform.isAndroid
-                ? duration.inMilliseconds
-                : duration.inMilliseconds / 1000
-          }) ??
-          false;
-    } else {
-      result = await _methodChannel?.invokeMethod<bool>('seek_to', {
-            'index': index,
-            'position': Platform.isAndroid
-                ? duration.inMilliseconds
-                : duration.inMilliseconds / 1000
-          }) ??
-          false;
-    }
+  Future<bool> seekTo(Duration duration) async {
+    final result = await _methodChannel?.invokeMethod<bool>(
+        'seek_to',
+        Platform.isAndroid
+            ? duration.inMilliseconds
+            : duration.inMilliseconds / 1000);
 
-    return result;
+    return result ?? false;
+  }
+
+  Future<bool> skipAd() async {
+    final result = await _methodChannel?.invokeMethod<bool>('skip_ad');
+    return result ?? false;
   }
 
   Future<bool> setVolume(double volume) async {

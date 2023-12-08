@@ -143,26 +143,6 @@ class ImaPlayerManager private constructor(
         result.success(duration != null)
     }
 
-    public fun seekTo(args: Map<String, Any>?, result: MethodChannel.Result) {
-        if (args != null){
-            var index: Int? = args["index"] as Int?
-            var seekPosition: Double? = args["position"] as Double?
-            if (index != null){
-                if (seekPosition != null){
-                    player.seekTo(index,seekPosition.toLong());
-                }else{
-                    player.seekTo(index, 0L);
-                }
-            }else{
-                if (seekPosition != null) {
-                    player.seekTo(seekPosition.toLong())
-                }
-            }
-        }
-
-        result.success(args != null)
-    }
-
     public fun setVolume(value: Double?, result: MethodChannel.Result) {
         if (value != null) {
             player.volume = 0.0.coerceAtLeast(1.0.coerceAtMost(value)).toFloat()
