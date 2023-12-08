@@ -48,7 +48,7 @@ class ImaPlayerManager private constructor(
         }
     }
 
-    fun initialize(args: Map<String, Any>?) {
+    fun initialize(args: Map<String, Any>?, result: MethodChannel.Result) {
         if (args != null){
             videoUrl = Uri.parse(args["video_url"] as String?)
             imaTag = Uri.parse(args["ima_tag"] as String?)
@@ -83,6 +83,8 @@ class ImaPlayerManager private constructor(
         player.addListener(this)
 
         preparePlayer()
+
+        result.success(true)
     }
 
     // 重写的 Player.Listener 方法

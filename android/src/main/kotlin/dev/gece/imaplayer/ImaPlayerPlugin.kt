@@ -29,8 +29,7 @@ class ImaPlayerPlugin : FlutterPlugin {
             when (call.method) {
                 "initialize" -> {
                     val args = call.arguments as Map<String, Any>?
-                    imasPlayer?.initialize(args)
-                    result.success(null)
+                    imasPlayer?.initialize(args, result)
                 }
                 "play" -> imasPlayer?.play(call.arguments as String?, result)
                 "pause" -> imasPlayer?.pause(result)

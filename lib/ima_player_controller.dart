@@ -43,7 +43,7 @@ class ImaPlayerController {
     await _methodChannel?.invokeMethod('view_created');
   }
 
-  Future<void> initPlayer() async {
+  Future<bool> initPlayer() async {
     final creationParams = {
       'ima_tag': imaTag,
       'is_muted': options.muted,
@@ -54,7 +54,9 @@ class ImaPlayerController {
       'controller_hide_on_touch': options.controllerHideOnTouch,
       'show_playback_controls': options.showPlaybackControls,
     };
-    await _methodChannel?.invokeMethod('initialize', creationParams);
+    final result =
+        await _methodChannel?.invokeMethod('initialize', creationParams);
+    return result ?? false;
   }
 
   Future<bool> play({String? videoUrl}) async {
