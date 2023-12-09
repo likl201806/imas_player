@@ -126,12 +126,12 @@ class ImaPlayerManager private constructor(
             player.stop()
             player.clearMediaItems()
             preparePlayer()
-            player.playWhenReady = true
-            result.success(true)
-        }else{
-            player.play()
-            result.success(true)
         }
+        player.playWhenReady = true
+        if (player.isPlaying == false){
+            player.play()
+        }
+        result.success(true)
     }
 
     public fun pause(result: MethodChannel.Result) {
