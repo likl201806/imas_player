@@ -3,10 +3,12 @@
 part of ima_player;
 
 enum ImaPlayerEvents {
+  IDLE,
   READY,
   BUFFERING,
   PLAYING,
-  PAUSED;
+  PAUSED,
+  ENDED;
 
   static ImaPlayerEvents? fromString(String? str) {
     for (final value in values) {

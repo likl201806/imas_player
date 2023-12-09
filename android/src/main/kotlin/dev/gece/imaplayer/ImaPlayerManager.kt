@@ -93,8 +93,10 @@ class ImaPlayerManager private constructor(
     override fun onPlaybackStateChanged(playbackState: Int) {
         super.onPlaybackStateChanged(playbackState)
         when (playbackState) {
+            ExoPlayer.STATE_IDLE -> sendEvent("IDLE")
             ExoPlayer.STATE_READY -> sendEvent("READY")
             ExoPlayer.STATE_BUFFERING -> sendEvent("BUFFERING")
+            ExoPlayer.STATE_ENDED -> sendEvent("ENDED")
         }
     }
 
