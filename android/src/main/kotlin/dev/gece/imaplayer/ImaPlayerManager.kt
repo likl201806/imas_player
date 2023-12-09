@@ -129,6 +129,7 @@ class ImaPlayerManager private constructor(
         }
 
         player.playWhenReady = true
+        player.play();
         result.success(true)
     }
 
