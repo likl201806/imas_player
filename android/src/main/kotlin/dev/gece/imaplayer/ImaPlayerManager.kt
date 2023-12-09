@@ -93,14 +93,14 @@ class ImaPlayerManager private constructor(
     override fun onPlaybackStateChanged(playbackState: Int) {
         super.onPlaybackStateChanged(playbackState)
         when (playbackState) {
-            ExoPlayer.STATE_READY -> sendEvent("ready")
-            ExoPlayer.STATE_BUFFERING -> sendEvent("buffering")
+            ExoPlayer.STATE_READY -> sendEvent("READY")
+            ExoPlayer.STATE_BUFFERING -> sendEvent("BUFFERING")
         }
     }
 
     override fun onIsPlayingChanged(isPlaying: Boolean) {
         super.onIsPlayingChanged(isPlaying)
-        sendEvent(if (isPlaying) "playing" else "pause")
+        sendEvent(if (isPlaying) "PLAYING" else "PAUSED")
     }
 
     private fun preparePlayer() {
