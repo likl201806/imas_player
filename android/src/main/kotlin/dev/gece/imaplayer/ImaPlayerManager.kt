@@ -200,17 +200,14 @@ class ImaPlayerManager private constructor(
         result.success(settings)
     }
 
-    public fun setEqualizerSingleBand(band: Map<Int,Int>?, result: MethodChannel.Result) {
-        try {
-            band?.forEach { (bandIndex, level) ->
-                imaPlayerEqualizer.setBandLevel(bandIndex.toShort(), level.toShort())
-            }
-            result.success(null) // 表示设置成功
-        } catch (e: IllegalArgumentException) {
-            result.error("INVALID_ARGUMENT", e.message, null)
-        } catch (e: IllegalStateException) {
-            result.error("ILLEGAL_STATE", e.message, null)
+    public fun setEqualizerSingleBand(args: Map<String, Any>?, result: MethodChannel.Result) {
+        if (args != null){
+            var index = args["index"] as Int
+            var bandLevel = args["bandLevel"] as Int
+            imaPlayerEqualizer.setBandLevel(index.toShort(), bandLevel.toShort())
+            result.success(true)
         }
+        result.success(false);
     }
 
     public fun getVideoInfo(result: MethodChannel.Result) {

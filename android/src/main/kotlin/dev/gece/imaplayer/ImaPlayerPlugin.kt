@@ -44,7 +44,7 @@ class ImaPlayerPlugin : FlutterPlugin {
                 "set_speed" -> imasPlayer?.setSpeed(call.arguments as Double?, result)
                 "get_speed" -> imasPlayer?.getSpeed(result)
                 "get_equalizer_info" -> imasPlayer?.getEqualizerSettings(result)
-                "set_equalizer_band" -> imasPlayer?.setEqualizerSingleBand(call.arguments as Map<Int,Int>?, result)
+                "set_equalizer_band" -> imasPlayer?.setEqualizerSingleBand(call.arguments as Map<String, Any>?, result)
                 "get_video_info" -> imasPlayer?.getVideoInfo(result)
                 "dispose" -> imasPlayer?.viewDispose(result)
                 else -> result.notImplemented()
