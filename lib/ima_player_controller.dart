@@ -134,6 +134,7 @@ class ImaPlayerController {
   Future<void> setEqualizerBand(int index, int bandLevel) async {
     final result = await _methodChannel
         ?.invokeMethod('set_equalizer_band', {index, bandLevel});
+    print("---ima result: $result");
     return result;
   }
 
