@@ -27,7 +27,7 @@ class ImaPlayerEqualizer(private val player: ExoPlayer) {
             val minLevel = bandLevelRange[0]
             val maxLevel = bandLevelRange[1]
             settings["min_band_leve"] = minLevel
-            settings["max_band_level"] = minLevel
+            settings["max_band_level"] = maxLevel
             for (i in 0 until numberOfBands) {
                 val bandFreqRange = eq.getBandFreqRange(i.toShort())
                 val bandLevel = eq.getBandLevel(i.toShort())
