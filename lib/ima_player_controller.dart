@@ -131,6 +131,12 @@ class ImaPlayerController {
     return Map<String, dynamic>.from(info ?? {});
   }
 
+  Future<void> setEqualizerBand(int index, int bandLevel) async {
+    final result = await _methodChannel
+        ?.invokeMethod('set_equalizer_band', {index, bandLevel});
+    return result;
+  }
+
   Future<ImaVideoInfo> getVideoInfo() async {
     final info = await _methodChannel?.invokeMapMethod<String, dynamic>(
       'get_video_info',

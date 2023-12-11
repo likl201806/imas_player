@@ -39,6 +39,20 @@ class ImaPlayerEqualizer(private val player: ExoPlayer) {
         return null
     }
 
+    fun setBandLevel(bandIndex: Short, level: Short) {
+        equalizer?.let { eq ->
+            val bandLevelRange = eq.bandLevelRange
+            val minLevel = bandLevelRange[0]
+            val maxLevel = bandLevelRange[1]
+
+            if (level in minLevel..maxLevel) {
+                eq.setBandLevel(bandIndex, level)
+            } else {
+                throw IllegalArgumentException("Level must be within $minLevel to $maxLevel")
+            }
+        } ?: throw IllegalStateException("Equalizer is not initialized or released")
+    }
+
     fun release() {
         equalizer?.release()
     }
