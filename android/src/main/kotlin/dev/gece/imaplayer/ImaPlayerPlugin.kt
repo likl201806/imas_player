@@ -33,7 +33,6 @@ class ImaPlayerPlugin : FlutterPlugin {
                 }
                 "play" -> {
                     var videoUrl = call.arguments as String?
-                    println("---android plugin videoUrl: $videoUrl")
                     imasPlayer?.play(videoUrl, result)
                 }
                 "pause" -> imasPlayer?.pause(result)
@@ -44,6 +43,7 @@ class ImaPlayerPlugin : FlutterPlugin {
                 "get_volume" -> imasPlayer?.getVolume(result)
                 "set_speed" -> imasPlayer?.setSpeed(call.arguments as Double?, result)
                 "get_speed" -> imasPlayer?.getSpeed(result)
+                "get_equalizer_info" -> imasPlayer?.getEqualizerSettings(result)
                 "get_video_info" -> imasPlayer?.getVideoInfo(result)
                 "dispose" -> imasPlayer?.viewDispose(result)
                 else -> result.notImplemented()

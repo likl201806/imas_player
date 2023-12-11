@@ -123,6 +123,14 @@ class ImaPlayerController {
     return result ?? 1.0;
   }
 
+  Future<Map<String, dynamic>> getEqualizerSettings() async {
+    final info = await _methodChannel?.invokeMapMethod<String, dynamic>(
+      'get_equalizer_info',
+    );
+
+    return Map<String, dynamic>.from(info ?? {});
+  }
+
   Future<ImaVideoInfo> getVideoInfo() async {
     final info = await _methodChannel?.invokeMapMethod<String, dynamic>(
       'get_video_info',
