@@ -28,6 +28,7 @@ class ImaPlayerManager private constructor(
 
     // Video Player
     public lateinit var player: ExoPlayer
+    private lateinit var imaPlayerEqualizer: ImaPlayerEqualizer
 
     // Passed arguments
     private var videoUrl: Uri? = null
@@ -72,6 +73,8 @@ class ImaPlayerManager private constructor(
             .setMediaSourceFactory(mediaSourceFactory)
             .setDeviceVolumeControlEnabled(true)
             .build()
+        // 创建 ImaPlayerEqualizer 实例
+        imaPlayerEqualizer = ImaPlayerEqualizer(player)
 
         player.playWhenReady = autoPlay
         player.setAudioAttributes(
@@ -193,18 +196,7 @@ class ImaPlayerManager private constructor(
     }
 
     public fun getEqualizerSettings(result: MethodChannel.Result) {
-        val sessionId = player.audioSessionId
-        val equalizer = Equalizer(0, sessionId)
-        val settings = mutableMapOf<String, Any>()
-        // 获取均衡器的参数，例如频段和级别
-        val numberOfBands = equalizer.numberOfBands
-        settings["numberOfBands"] = numberOfBands
-
-        for (i in 0 until numberOfBands) {
-            settings["band_level_$i"] = equalizer.getBandLevel(i.toShort())
-        }
-        equalizer.release()
-
+        val settings = imaPlayerEqualizer.getEqualizerSettings()
         result.success(settings)
     }
 
