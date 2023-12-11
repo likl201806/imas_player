@@ -23,12 +23,16 @@ class ImaPlayerEqualizer(private val player: ExoPlayer) {
             val settings = mutableMapOf<String, Any>()
             val numberOfBands = eq.numberOfBands
             settings["numberOfBands"] = numberOfBands
-
+            val bandLevelRange = eq.bandLevelRange
+            val minLevel = bandLevelRange[0]
+            val maxLevel = bandLevelRange[1]
+            settings["min_band_leve"] = minLevel
+            settings["max_band_level"] = minLevel
             for (i in 0 until numberOfBands) {
                 val bandFreqRange = eq.getBandFreqRange(i.toShort())
                 val bandLevel = eq.getBandLevel(i.toShort())
                 settings["band_frequency_range_$i "] = bandFreqRange
-                settings["band_level$i"] = bandLevel
+                settings["band_level_$i"] = bandLevel
             }
             return settings
         }
