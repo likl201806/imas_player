@@ -39,10 +39,6 @@ class ImaPlayerController {
     );
   }
 
-  Future<void> onViewCreated() async {
-    await _methodChannel?.invokeMethod('view_created');
-  }
-
   Future<bool> initPlayer() async {
     final creationParams = {
       'ima_tag': imaTag,

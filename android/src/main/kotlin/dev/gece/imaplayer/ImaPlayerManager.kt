@@ -187,11 +187,10 @@ class ImaPlayerManager private constructor(
         result.success(speed)
     }
 
-    public fun viewCreated(result: MethodChannel.Result) {
-        result.success(true)
-    }
-
     public fun viewDispose(result: MethodChannel.Result) {
+        player.removeListener(this)
+        player.release()
+        eventSink = null
         result.success(true)
     }
 

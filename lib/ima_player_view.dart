@@ -58,7 +58,6 @@ class _ImaPlayerView extends StatelessWidget {
         creationParamsCodec: const StandardMessageCodec(),
         onPlatformViewCreated: (id) {
           controller.attach();
-          controller.onViewCreated();
         },
       );
     }
