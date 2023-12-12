@@ -114,7 +114,6 @@ class _PlayerScreenState extends State<PlayerScreen> {
 
   @override
   void dispose() {
-    controller.dispose();
     super.dispose();
   }
 

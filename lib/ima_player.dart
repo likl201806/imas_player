@@ -81,7 +81,6 @@ class _ImaPlayerState extends State<ImaPlayer> with WidgetsBindingObserver {
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    widget.controller.dispose();
     super.dispose();
   }
 

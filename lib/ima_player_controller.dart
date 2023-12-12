@@ -143,8 +143,8 @@ class ImaPlayerController {
     return ImaVideoInfo.fromJson(Map<String, dynamic>.from(info ?? {}));
   }
 
-  void dispose() {
-    _methodChannel?.invokeMethod('dispose');
+  void disposePlayer() {
+    _methodChannel?.invokeMethod('disposePlayer');
     _eventChannelListener?.cancel();
     _onPlayerEventController.close();
   }

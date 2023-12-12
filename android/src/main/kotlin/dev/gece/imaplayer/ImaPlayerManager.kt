@@ -187,7 +187,7 @@ class ImaPlayerManager private constructor(
         result.success(speed)
     }
 
-    public fun viewDispose(result: MethodChannel.Result) {
+    public fun disposePlayer(result: MethodChannel.Result) {
         player.removeListener(this)
         player.release()
         eventSink = null
