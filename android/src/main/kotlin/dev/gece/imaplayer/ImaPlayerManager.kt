@@ -145,6 +145,14 @@ class ImaPlayerManager private constructor(
         result.success(true)
     }
 
+    public fun isPlaying(result: MethodChannel.Result) {
+        if (player.isPlaying == true){
+            result.success(true)
+        }else{
+            result.success(false)
+        }
+    }
+
     public fun stop(result: MethodChannel.Result) {
         player.stop()
         result.success(true)

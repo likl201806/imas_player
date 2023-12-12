@@ -65,6 +65,11 @@ class ImaPlayerController {
     return result ?? false;
   }
 
+  Future<bool> isPlaying() async {
+    final result = await _methodChannel?.invokeMethod<bool>('isPlaying');
+    return result ?? true;
+  }
+
   Future<bool> stop() async {
     final result = await _methodChannel?.invokeMethod<bool>('stop');
     return result ?? false;

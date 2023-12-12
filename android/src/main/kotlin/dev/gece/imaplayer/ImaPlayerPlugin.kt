@@ -37,6 +37,7 @@ class ImaPlayerPlugin : FlutterPlugin {
                 }
                 "pause" -> imasPlayer?.pause(result)
                 "stop" -> imasPlayer?.stop(result)
+                "isPlaying" -> imasPlayer?.isPlaying(result)
                 "seek_to" -> imasPlayer?.seekTo(call.arguments as Int?, result)
                 "set_volume" -> imasPlayer?.setVolume(call.arguments as Double?, result)
                 "get_volume" -> imasPlayer?.getVolume(result)
