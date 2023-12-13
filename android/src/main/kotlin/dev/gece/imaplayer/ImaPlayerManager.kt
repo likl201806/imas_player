@@ -37,6 +37,8 @@ class ImaPlayerManager private constructor(
     private var isMixed: Boolean = true
     private var autoPlay: Boolean = true
 
+    private var curState: String = ""
+
     companion object {
         private var instance: ImaPlayerManager? = null
 
@@ -96,13 +98,38 @@ class ImaPlayerManager private constructor(
     }
 
     // 重写的 Player.Listener 方法
+//    override fun onPlaybackStateChanged(playbackState: Int) {
+//        super.onPlaybackStateChanged(playbackState)
+//        when (playbackState) {
+//            ExoPlayer.STATE_IDLE -> sendEvent("IDLE")
+//            ExoPlayer.STATE_READY -> sendEvent("READY")
+//            ExoPlayer.STATE_BUFFERING -> sendEvent("BUFFERING")
+//            ExoPlayer.STATE_ENDED -> sendEvent("ENDED")
+//        }
+//    }
     override fun onPlaybackStateChanged(playbackState: Int) {
         super.onPlaybackStateChanged(playbackState)
         when (playbackState) {
-            ExoPlayer.STATE_IDLE -> sendEvent("IDLE")
-            ExoPlayer.STATE_READY -> sendEvent("READY")
-            ExoPlayer.STATE_BUFFERING -> sendEvent("BUFFERING")
-            ExoPlayer.STATE_ENDED -> sendEvent("ENDED")
+            ExoPlayer.STATE_IDLE -> {
+                sendEvent("IDLE")
+                curState = "IDLE"
+            }
+            ExoPlayer.STATE_READY -> {
+                sendEvent("READY")
+                curState = "READY"
+            }
+            ExoPlayer.STATE_BUFFERING -> {
+                if (curState == "" || curState == "IDLE" || curState == "READY") {
+                    sendEvent("LOADING")
+                    curState = "LOADING"
+                } else if (curState == "LOADING") {
+                    sendEvent("BUFFERING")
+                    curState = "BUFFERING"
+                }
+            }
+            ExoPlayer.STATE_ENDED -> {
+                sendEvent("ENDED")
+            }
         }
     }
 

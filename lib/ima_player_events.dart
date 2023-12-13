@@ -4,6 +4,7 @@ part of ima_player;
 
 enum ImaPlayerEvents {
   IDLE,
+  LOADING,
   READY,
   BUFFERING,
   PLAYING,
