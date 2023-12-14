@@ -12,6 +12,7 @@ import androidx.media3.common.audio.AudioProcessor
 import androidx.media3.datasource.DefaultDataSource
 import androidx.media3.exoplayer.ExoPlayer
 import android.media.audiofx.Equalizer
+import androidx.media3.common.PlaybackException
 import androidx.media3.exoplayer.audio.DefaultAudioSink
 import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
 import io.flutter.plugin.common.BinaryMessenger
@@ -92,21 +93,9 @@ class ImaPlayerManager private constructor(
 
         preparePlayer()
 
-        println("---android success init player")
-
         result.success(true)
     }
 
-    // 重写的 Player.Listener 方法
-//    override fun onPlaybackStateChanged(playbackState: Int) {
-//        super.onPlaybackStateChanged(playbackState)
-//        when (playbackState) {
-//            ExoPlayer.STATE_IDLE -> sendEvent("IDLE")
-//            ExoPlayer.STATE_READY -> sendEvent("READY")
-//            ExoPlayer.STATE_BUFFERING -> sendEvent("BUFFERING")
-//            ExoPlayer.STATE_ENDED -> sendEvent("ENDED")
-//        }
-//    }
     override fun onPlaybackStateChanged(playbackState: Int) {
         super.onPlaybackStateChanged(playbackState)
         when (playbackState) {
@@ -138,6 +127,12 @@ class ImaPlayerManager private constructor(
         sendEvent(if (isPlaying) "PLAYING" else "PAUSED")
     }
 
+    override fun onPlayerError(error: PlaybackException) {
+        super.onPlayerError(error)
+        sendEvent("ERROR")
+        curState = "ERROR"
+    }
+
     private fun preparePlayer() {
         if (videoUrl != null && imaTag != null){
             println("---android url: $videoUrl")
@@ -152,9 +147,7 @@ class ImaPlayerManager private constructor(
     }
 
     public fun play(videoUrl: String?, result: MethodChannel.Result) {
-        println("---android videoUrl: $videoUrl")
         if (videoUrl != null) {
-            println("---android setVideoUrl: $videoUrl")
             this.videoUrl = Uri.parse(videoUrl)
             player.stop()
             player.clearMediaItems()

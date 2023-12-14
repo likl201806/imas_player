@@ -9,7 +9,8 @@ enum ImaPlayerEvents {
   BUFFERING,
   PLAYING,
   PAUSED,
-  ENDED;
+  ENDED,
+  ERROR;
 
   static ImaPlayerEvents? fromString(String? str) {
     for (final value in values) {
