@@ -17,6 +17,11 @@ class ImaPlayerPlugin : FlutterPlugin {
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onAttachedToEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
+        binding.platformViewRegistry.registerViewFactory(
+            "gece.dev/imaplayer_view", ImaPlayerViewFactory(binding.binaryMessenger)
+        )
+        // 获取 ImaPlayerManager 实例
+        imasPlayer = ImaPlayerManager.getInstance(binding.applicationContext, binding.binaryMessenger)
         // 注册 Flutter 插件和 MethodChannel
         methodChannel = MethodChannel(binding.binaryMessenger, "gece.dev/imas_player_method_channel")
         methodChannel?.setMethodCallHandler { call, result ->
@@ -57,9 +62,6 @@ class ImaPlayerPlugin : FlutterPlugin {
                 imasPlayer?.eventSink = null
             }
         })
-
-        // 获取 ImaPlayerManager 实例
-        imasPlayer = ImaPlayerManager.getInstance(binding.applicationContext, binding.binaryMessenger)
     }
 
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
