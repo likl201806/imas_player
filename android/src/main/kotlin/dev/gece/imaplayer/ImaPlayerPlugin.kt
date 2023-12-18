@@ -11,7 +11,7 @@ import io.flutter.plugin.common.EventChannel.EventSink
 /** ImaPlugin */
 class ImaPlayerPlugin : FlutterPlugin {
 
-    private var imasPlayer: ImaPlayerManager? = null
+    private var imasPlayer: ImaPlayerManager<Any?>? = null
     private var methodChannel: MethodChannel? = null
     private var eventChannel: EventChannel? = null
 

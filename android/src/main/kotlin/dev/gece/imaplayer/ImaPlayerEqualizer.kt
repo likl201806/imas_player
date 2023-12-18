@@ -1,5 +1,6 @@
 package dev.gece.imaplayer
-import androidx.media3.exoplayer.ExoPlayer
+//import androidx.media3.exoplayer.ExoPlayer
+import com.google.android.exoplayer2.ExoPlayer
 import android.media.audiofx.Equalizer
 
 class ImaPlayerEqualizer(private val player: ExoPlayer) {
