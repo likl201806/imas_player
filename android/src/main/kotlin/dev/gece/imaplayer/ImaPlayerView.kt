@@ -41,6 +41,9 @@ internal class ImaPlayerView(
         playerView.useController = args["show_playback_controls"] as Boolean? ?: true
         val imaManager = ImaPlayerManager.getInstance(context, messenger)
         playerView.player = imaManager.player
+        if (playerView.player == null) {
+            println("---android player is null")
+        }
     }
 }
 
