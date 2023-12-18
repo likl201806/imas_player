@@ -1,5 +1,6 @@
 package dev.gece.imaplayer
-import androidx.media3.exoplayer.ExoPlayer
+
+import com.google.android.exoplayer2.ExoPlayer
 import android.media.audiofx.Equalizer
 
 class ImaPlayerEqualizer(private val player: ExoPlayer) {
@@ -26,7 +27,7 @@ class ImaPlayerEqualizer(private val player: ExoPlayer) {
             val bandLevelRange = eq.bandLevelRange
             val minLevel = bandLevelRange[0]
             val maxLevel = bandLevelRange[1]
-            settings["min_band_leve"] = minLevel
+            settings["min_band_level"] = minLevel
             settings["max_band_level"] = maxLevel
             for (i in 0 until numberOfBands) {
                 val bandFreqRange = eq.getBandFreqRange(i.toShort())

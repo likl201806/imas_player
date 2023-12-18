@@ -8,7 +8,7 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.EventChannel.EventSink
 
-/** ImaPlugin */
+/** ImaPlayerPlugin */
 class ImaPlayerPlugin : FlutterPlugin {
 
     private var imasPlayer: ImaPlayerManager? = null
@@ -17,22 +17,17 @@ class ImaPlayerPlugin : FlutterPlugin {
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onAttachedToEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
-        binding.platformViewRegistry.registerViewFactory(
-            "gece.dev/imaplayer_view", ImaPlayerViewFactory(binding.binaryMessenger)
-        )
-
-        imasPlayer = ImaPlayerManager.getInstance(binding.applicationContext, binding.binaryMessenger)
-        // 创建并设置 MethodChannel
+        // 注册 Flutter 插件和 MethodChannel
         methodChannel = MethodChannel(binding.binaryMessenger, "gece.dev/imas_player_method_channel")
         methodChannel?.setMethodCallHandler { call, result ->
-            // 根据方法名调用 ImasPlayer 的相应方法
             when (call.method) {
+                // 处理不同的方法调用
                 "initialize" -> {
                     val args = call.arguments as Map<String, Any>?
                     imasPlayer?.initialize(args, result)
                 }
                 "play" -> {
-                    var videoUrl = call.arguments as String?
+                    val videoUrl = call.arguments as String?
                     imasPlayer?.play(videoUrl, result)
                 }
                 "pause" -> imasPlayer?.pause(result)
@@ -51,7 +46,7 @@ class ImaPlayerPlugin : FlutterPlugin {
             }
         }
 
-        // 创建并设置 EventChannel
+        // 注册 EventChannel
         eventChannel = EventChannel(binding.binaryMessenger, "gece.dev/imas_player_event_channel")
         eventChannel?.setStreamHandler(object : EventChannel.StreamHandler {
             override fun onListen(arguments: Any?, events: EventSink?) {
@@ -62,12 +57,15 @@ class ImaPlayerPlugin : FlutterPlugin {
                 imasPlayer?.eventSink = null
             }
         })
+
+        // 获取 ImaPlayerManager 实例
+        imasPlayer = ImaPlayerManager.getInstance(binding.applicationContext, binding.binaryMessenger)
     }
 
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
+        // 清理资源
         methodChannel?.setMethodCallHandler(null)
         eventChannel?.setStreamHandler(null)
         imasPlayer = null
     }
 }
-

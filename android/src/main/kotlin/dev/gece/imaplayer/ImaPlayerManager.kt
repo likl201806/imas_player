@@ -4,17 +4,14 @@ import android.content.Context
 import android.net.Uri
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.media3.common.AudioAttributes
-import androidx.media3.common.C
-import androidx.media3.common.MediaItem
-import androidx.media3.common.Player
-import androidx.media3.common.audio.AudioProcessor
-import androidx.media3.datasource.DefaultDataSource
-import androidx.media3.exoplayer.ExoPlayer
+import com.google.android.exoplayer2.ExoPlayer
+import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.Player
+import com.google.android.exoplayer2.audio.AudioAttributes
+import com.google.android.exoplayer2.source.DefaultMediaSourceFactory
+import com.google.android.exoplayer2.upstream.DefaultDataSource
 import android.media.audiofx.Equalizer
-import androidx.media3.common.PlaybackException
-import androidx.media3.exoplayer.audio.DefaultAudioSink
-import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
+import com.google.android.exoplayer2.PlaybackException
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.EventChannel.EventSink
 import io.flutter.plugin.common.MethodChannel
@@ -56,13 +53,13 @@ class ImaPlayerManager private constructor(
     }
 
     fun initialize(args: Map<String, Any>?, result: MethodChannel.Result) {
-        if (args != null){
+        if (args != null) {
             videoUrl = Uri.parse(args["video_url"] as String?)
             imaTag = Uri.parse(args["ima_tag"] as String?)
             isMuted = args["is_muted"] as Boolean? == true
             isMixed = args["is_mixed"] as Boolean? ?: true
             autoPlay = args["auto_play"] as Boolean? ?: true
-        }else{
+        } else {
             isMuted = true
             isMixed = true
             autoPlay = true
@@ -74,17 +71,13 @@ class ImaPlayerManager private constructor(
         // Create an ExoPlayer and set it as the player for content and ads.
         player = ExoPlayer.Builder(context)
             .setMediaSourceFactory(mediaSourceFactory)
-            .setDeviceVolumeControlEnabled(true)
+            .setAudioAttributes(AudioAttributes.DEFAULT, !isMixed)
             .build()
+
         // 创建 ImaPlayerEqualizer 实例
         imaPlayerEqualizer = ImaPlayerEqualizer(player)
 
         player.playWhenReady = autoPlay
-        player.setAudioAttributes(
-            AudioAttributes.Builder().setContentType(C.AUDIO_CONTENT_TYPE_MOVIE).build(),
-            !isMixed
-        )
-
         if (isMuted) {
             player.volume = 0.0F
         }
