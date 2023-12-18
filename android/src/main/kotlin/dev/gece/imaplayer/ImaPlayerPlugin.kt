@@ -59,10 +59,10 @@ class ImaPlayerPlugin : FlutterPlugin {
                 imasPlayer?.eventSink = null
             }
         })
-        
-        binding.platformViewRegistry.registerViewFactory(
-            "gece.dev/imaplayer_view", ImaPlayerViewFactory(binding.binaryMessenger)
-        )
+
+//        binding.platformViewRegistry.registerViewFactory(
+//            "gece.dev/imaplayer_view", ImaPlayerViewFactory(binding.binaryMessenger)
+//        )
     }
 
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
