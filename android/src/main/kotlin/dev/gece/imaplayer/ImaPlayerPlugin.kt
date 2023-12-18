@@ -8,6 +8,12 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.EventChannel.EventSink
 
+import android.content.Context
+import io.flutter.plugin.common.BinaryMessenger
+import io.flutter.plugin.common.StandardMessageCodec
+import io.flutter.plugin.platform.PlatformView
+import io.flutter.plugin.platform.PlatformViewFactory
+
 /** ImaPlayerPlugin */
 class ImaPlayerPlugin : FlutterPlugin {
 
@@ -69,5 +75,16 @@ class ImaPlayerPlugin : FlutterPlugin {
         methodChannel?.setMethodCallHandler(null)
         eventChannel?.setStreamHandler(null)
         imasPlayer = null
+    }
+}
+
+class ImaPlayerViewFactory(private val messenger: BinaryMessenger) :
+    PlatformViewFactory(StandardMessageCodec.INSTANCE) {
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    override fun create(context: Context, id: Int, args: Any?): PlatformView {
+        return ImaPlayerView(
+            context, id, args as Map<String, Any>, messenger
+        )
     }
 }
