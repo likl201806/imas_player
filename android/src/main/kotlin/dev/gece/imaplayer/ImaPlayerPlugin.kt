@@ -40,10 +40,6 @@ class ImaPlayerPlugin : FlutterPlugin {
                     val videoUrl = call.arguments as String?
                     imasPlayer?.play(videoUrl, result)
                 }
-                "playM3u8" -> {
-                    val videoUrl = call.arguments as String?
-                    imasPlayer?.playM3u8(videoUrl, result)
-                }
                 "pause" -> imasPlayer?.pause(result)
                 "stop" -> imasPlayer?.stop(result)
                 "isPlaying" -> imasPlayer?.isPlaying(result)

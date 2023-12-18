@@ -16,6 +16,9 @@ import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.EventChannel.EventSink
 import io.flutter.plugin.common.MethodChannel
 
+///特别提醒，com.google.android.exoplayer支持hls播放，可以直接通过url播放，无需经过HlsMediaSource。
+// 而原来的androidx.media3:media3-exoplayer则不支持hls播放
+
 import com.google.android.exoplayer2.source.hls.HlsMediaSource
 
 @RequiresApi(Build.VERSION_CODES.N)
@@ -147,25 +150,6 @@ class ImaPlayerManager private constructor(
             player.stop()
             player.clearMediaItems()
             preparePlayer()
-        }
-        player.playWhenReady = true
-        if (player.isPlaying == false){
-            player.play()
-        }
-        result.success(true)
-    }
-
-    public fun playM3u8(videoUrl: String?, result: MethodChannel.Result) {
-        if (videoUrl != null) {
-            player.stop()
-            player.clearMediaItems()
-            // 创建数据源工厂
-            val dataSourceFactory = DefaultHttpDataSource.Factory()
-            // 创建HLS媒体源
-            val hlsMediaSource = HlsMediaSource.Factory(dataSourceFactory)
-                .createMediaSource(MediaItem.fromUri(videoUrl))
-            player.setMediaSource(hlsMediaSource)
-            player.prepare()
         }
         player.playWhenReady = true
         if (player.isPlaying == false){
