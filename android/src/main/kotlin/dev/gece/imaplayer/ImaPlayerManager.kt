@@ -4,34 +4,23 @@ import android.content.Context
 import android.net.Uri
 import android.os.Build
 import androidx.annotation.RequiresApi
-//import androidx.media3.common.AudioAttributes
-//import androidx.media3.common.C
-//import androidx.media3.common.MediaItem
-//import androidx.media3.common.Player
-//import androidx.media3.common.audio.AudioProcessor
-//import androidx.media3.datasource.DefaultDataSource
-//import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.common.AudioAttributes
+import androidx.media3.common.C
+import androidx.media3.common.MediaItem
+import androidx.media3.common.Player
+import androidx.media3.common.audio.AudioProcessor
+import androidx.media3.datasource.DefaultDataSource
+import androidx.media3.exoplayer.ExoPlayer
 import android.media.audiofx.Equalizer
-import com.google.android.exoplayer2.C
-//import androidx.media3.common.PlaybackException
-//import androidx.media3.exoplayer.audio.DefaultAudioSink
-//import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
-import com.google.android.exoplayer2.ExoPlayer
-import com.google.android.exoplayer2.MediaItem
-import com.google.android.exoplayer2.PlaybackException
-import com.google.android.exoplayer2.Player
-import com.google.android.exoplayer2.audio.AudioAttributes
-import com.google.android.exoplayer2.source.DefaultMediaSourceFactory
-import com.google.android.exoplayer2.source.hls.HlsMediaSource
-import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
-import com.google.android.exoplayer2.ui.PlayerView
-import com.google.android.exoplayer2.upstream.DefaultDataSource
+import androidx.media3.common.PlaybackException
+import androidx.media3.exoplayer.audio.DefaultAudioSink
+import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.EventChannel.EventSink
 import io.flutter.plugin.common.MethodChannel
 
 @RequiresApi(Build.VERSION_CODES.N)
-class ImaPlayerManager<EventSink> private constructor(
+class ImaPlayerManager private constructor(
     private val context: Context,
     private val messenger: BinaryMessenger
 ) : Player.Listener {
@@ -52,13 +41,13 @@ class ImaPlayerManager<EventSink> private constructor(
     private var curState: String = ""
 
     companion object {
-        private var instance: ImaPlayerManager<Any?>? = null
+        private var instance: ImaPlayerManager? = null
 
         @RequiresApi(Build.VERSION_CODES.N)
         fun getInstance(
             context: Context,
             messenger: BinaryMessenger
-        ): ImaPlayerManager<Any?> {
+        ): ImaPlayerManager {
             if (instance == null) {
                 instance = ImaPlayerManager(context, messenger)
             }

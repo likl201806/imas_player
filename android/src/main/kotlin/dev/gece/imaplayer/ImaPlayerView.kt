@@ -4,10 +4,8 @@ import android.content.Context
 import android.os.Build
 import android.view.View
 import androidx.annotation.RequiresApi
-import com.google.android.exoplayer2.Player
-import com.google.android.exoplayer2.ui.PlayerView
-//import androidx.media3.common.Player
-//import androidx.media3.ui.PlayerView
+import androidx.media3.common.Player
+import androidx.media3.ui.PlayerView
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.platform.PlatformView
 
@@ -35,8 +33,8 @@ internal class ImaPlayerView(
         playerView.setShowNextButton(false)
         playerView.setShowPreviousButton(false)
         playerView.setShowShuffleButton(false)
-//        playerView.setShowSubtitleButton(false)
-//        playerView.setShowVrButton(false)
+        playerView.setShowSubtitleButton(false)
+        playerView.setShowVrButton(false)
         playerView.controllerAutoShow = args["controller_auto_show"] as Boolean? ?: true
         playerView.controllerHideOnTouch = args["controller_hide_on_touch"] as Boolean? ?: true
         playerView.useController = args["show_playback_controls"] as Boolean? ?: true
