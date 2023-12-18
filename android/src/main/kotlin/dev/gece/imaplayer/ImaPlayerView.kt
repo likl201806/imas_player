@@ -32,6 +32,7 @@ internal class ImaPlayerView(
     }
 
     init {
+        println("---android player init")
         playerView = PlayerView(context)
         playerView.setShowNextButton(false)
         playerView.setShowPreviousButton(false)
