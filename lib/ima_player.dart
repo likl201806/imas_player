@@ -87,6 +87,7 @@ class _ImaPlayerState extends State<ImaPlayer> with WidgetsBindingObserver {
   // final ImaPlayerOptions options;
   @override
   Widget build(BuildContext context) {
+    print("---ima begin _ImaPlayerView");
     return _ImaPlayerView(
       controller: widget.controller,
       gestureRecognizers: widget.gestureRecognizers,
