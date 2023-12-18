@@ -10,11 +10,13 @@ import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.audio.AudioAttributes
 import com.google.android.exoplayer2.source.DefaultMediaSourceFactory
 import com.google.android.exoplayer2.upstream.DefaultDataSource
-import android.media.audiofx.Equalizer
 import com.google.android.exoplayer2.PlaybackException
+import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.EventChannel.EventSink
 import io.flutter.plugin.common.MethodChannel
+
+import com.google.android.exoplayer2.source.hls.HlsMediaSource
 
 @RequiresApi(Build.VERSION_CODES.N)
 class ImaPlayerManager private constructor(
@@ -145,6 +147,25 @@ class ImaPlayerManager private constructor(
             player.stop()
             player.clearMediaItems()
             preparePlayer()
+        }
+        player.playWhenReady = true
+        if (player.isPlaying == false){
+            player.play()
+        }
+        result.success(true)
+    }
+
+    public fun playM3u8(videoUrl: String?, result: MethodChannel.Result) {
+        if (videoUrl != null) {
+            player.stop()
+            player.clearMediaItems()
+            // 创建数据源工厂
+            val dataSourceFactory = DefaultHttpDataSource.Factory()
+            // 创建HLS媒体源
+            val hlsMediaSource = HlsMediaSource.Factory(dataSourceFactory)
+                .createMediaSource(MediaItem.fromUri(videoUrl))
+            player.setMediaSource(hlsMediaSource)
+            player.prepare()
         }
         player.playWhenReady = true
         if (player.isPlaying == false){

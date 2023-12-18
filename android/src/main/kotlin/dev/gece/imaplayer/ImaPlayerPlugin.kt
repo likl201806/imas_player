@@ -1,14 +1,13 @@
 package dev.gece.imaplayer
 
 import android.os.Build
+import android.content.Context
 import androidx.annotation.NonNull
 import androidx.annotation.RequiresApi
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.EventChannel.EventSink
-
-import android.content.Context
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.StandardMessageCodec
 import io.flutter.plugin.platform.PlatformView
@@ -40,6 +39,10 @@ class ImaPlayerPlugin : FlutterPlugin {
                 "play" -> {
                     val videoUrl = call.arguments as String?
                     imasPlayer?.play(videoUrl, result)
+                }
+                "playM3u8" -> {
+                    val videoUrl = call.arguments as String?
+                    imasPlayer?.playM3u8(videoUrl, result)
                 }
                 "pause" -> imasPlayer?.pause(result)
                 "stop" -> imasPlayer?.stop(result)

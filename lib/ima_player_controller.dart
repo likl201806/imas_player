@@ -60,6 +60,12 @@ class ImaPlayerController {
     return result ?? false;
   }
 
+  Future<bool> playM3u8({String? videoUrl}) async {
+    final result =
+        await _methodChannel?.invokeMethod<bool>('playM3u8', videoUrl);
+    return result ?? false;
+  }
+
   Future<bool> pause() async {
     final result = await _methodChannel?.invokeMethod<bool>('pause');
     return result ?? false;

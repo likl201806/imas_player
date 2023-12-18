@@ -4,11 +4,8 @@ import android.content.Context
 import android.os.Build
 import android.view.View
 import androidx.annotation.RequiresApi
-//import androidx.media3.common.Player
-import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.ui.PlayerView
-//import androidx.media3.ui.PlayerView
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.platform.PlatformView
 
@@ -32,7 +29,6 @@ internal class ImaPlayerView(
     }
 
     init {
-        println("---android player init")
         playerView = PlayerView(context)
         playerView.setShowNextButton(false)
         playerView.setShowPreviousButton(false)
@@ -42,9 +38,6 @@ internal class ImaPlayerView(
         playerView.useController = args["show_playback_controls"] as Boolean? ?: true
         val imaManager = ImaPlayerManager.getInstance(context, messenger)
         playerView.player = imaManager.player
-        if (playerView.player == null) {
-            println("---android player is null")
-        }
     }
 }
 
