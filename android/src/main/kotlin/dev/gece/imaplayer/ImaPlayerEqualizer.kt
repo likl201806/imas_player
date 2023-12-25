@@ -2,6 +2,7 @@ package dev.gece.imaplayer
 
 import com.google.android.exoplayer2.ExoPlayer
 import android.media.audiofx.Equalizer
+import com.google.android.exoplayer2.util.Log
 
 class ImaPlayerEqualizer(private val player: ExoPlayer) {
     private var equalizer: Equalizer? = null
@@ -12,10 +13,14 @@ class ImaPlayerEqualizer(private val player: ExoPlayer) {
 
     private fun initializeEqualizer() {
         val audioSessionId = player.audioSessionId
+        Log.d("ImaPlayerEqualizer", "---ima Initializing Equalizer with session ID: $audioSessionId")
         if (audioSessionId > 0) {
             equalizer = Equalizer(0, audioSessionId).apply {
                 enabled = true
             }
+            Log.d("ImaPlayerEqualizer", "---ima Equalizer initialized")
+        } else {
+            Log.d("ImaPlayerEqualizer", "---ima Invalid audio session ID")
         }
     }
 
