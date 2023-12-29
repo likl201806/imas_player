@@ -161,7 +161,7 @@ class ImaPlayerManager private constructor(
             this.videoUrl = Uri.parse(videoUrl)
             player.stop()
             player.clearMediaItems()
-            prepareSource()
+            preparePlayer()
         }
         player.playWhenReady = true
         if (player.isPlaying == false){
@@ -175,7 +175,7 @@ class ImaPlayerManager private constructor(
             this.videoUrl = Uri.parse(videoUrl)
             player.stop()
             player.clearMediaItems()
-            preparePlayer()
+            prepareSource()
         }
         result.success(true)
     }
