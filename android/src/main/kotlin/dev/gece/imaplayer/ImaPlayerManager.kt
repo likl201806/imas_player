@@ -89,7 +89,7 @@ class ImaPlayerManager private constructor(
 
         player.addListener(this)
 
-//        preparePlayer()
+        prepareSource()
 
         result.success(true)
     }
@@ -129,6 +129,18 @@ class ImaPlayerManager private constructor(
         super.onPlayerError(error)
         sendEvent("ERROR")
         curState = "ERROR"
+    }
+
+    private fun prepareSource() {
+        if (videoUrl != null && imaTag != null){
+            println("---android url: $videoUrl")
+            val mediaItem = MediaItem.Builder().setUri(videoUrl)
+                .setAdsConfiguration(imaTag?.let {
+                    MediaItem.AdsConfiguration.Builder(it).build()
+                }).build()
+
+            player.setMediaItem(mediaItem)
+        }
     }
 
     private fun preparePlayer() {
