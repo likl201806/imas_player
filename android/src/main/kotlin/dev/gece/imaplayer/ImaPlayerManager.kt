@@ -175,7 +175,7 @@ class ImaPlayerManager private constructor(
             this.videoUrl = Uri.parse(videoUrl)
             player.stop()
             player.clearMediaItems()
-            prepareSource()
+            preparePlayer()
         }
         result.success(true)
     }
