@@ -89,7 +89,7 @@ class ImaPlayerManager private constructor(
 
         player.addListener(this)
 
-        preparePlayer()
+//        preparePlayer()
 
         result.success(true)
     }
