@@ -82,14 +82,14 @@ class ImaPlayerManager private constructor(
         // 创建 ImaPlayerEqualizer 实例
         imaPlayerEqualizer = ImaPlayerEqualizer(player)
 
-        player.playWhenReady = autoPlay
+        player.playWhenReady = false
         if (isMuted) {
             player.volume = 0.0F
         }
 
         player.addListener(this)
 
-        prepareSource()
+        preparePlayer()
 
         result.success(true)
     }
