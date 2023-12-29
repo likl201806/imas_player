@@ -55,6 +55,12 @@ class ImaPlayerController {
     return result ?? false;
   }
 
+  Future<bool> setMediaUrl({String? videoUrl}) async {
+    final result =
+        await _methodChannel?.invokeMethod<bool>('setMediaUrl', videoUrl);
+    return result ?? false;
+  }
+
   Future<bool> play({String? videoUrl}) async {
     final result = await _methodChannel?.invokeMethod<bool>('play', videoUrl);
     return result ?? false;

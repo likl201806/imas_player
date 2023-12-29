@@ -161,11 +161,21 @@ class ImaPlayerManager private constructor(
             this.videoUrl = Uri.parse(videoUrl)
             player.stop()
             player.clearMediaItems()
-            preparePlayer()
+            prepareSource()
         }
         player.playWhenReady = true
         if (player.isPlaying == false){
             player.play()
+        }
+        result.success(true)
+    }
+
+    public fun setMediaUrl(videoUrl: String?, result: MethodChannel.Result) {
+        if (videoUrl != null) {
+            this.videoUrl = Uri.parse(videoUrl)
+            player.stop()
+            player.clearMediaItems()
+            preparePlayer()
         }
         result.success(true)
     }
