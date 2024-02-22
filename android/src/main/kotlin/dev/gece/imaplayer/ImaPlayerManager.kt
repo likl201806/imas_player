@@ -20,6 +20,7 @@ import io.flutter.plugin.common.MethodChannel
 // 而原来的androidx.media3:media3-exoplayer则不支持hls播放
 
 import com.google.android.exoplayer2.source.hls.HlsMediaSource
+import com.google.android.exoplayer2.ui.PlayerView
 
 @RequiresApi(Build.VERSION_CODES.N)
 class ImaPlayerManager private constructor(
@@ -41,6 +42,8 @@ class ImaPlayerManager private constructor(
     private var autoPlay: Boolean = true
 
     private var curState: String = ""
+
+    private var playerView: PlayerView? = null
 
     companion object {
         private var instance: ImaPlayerManager? = null
@@ -92,6 +95,40 @@ class ImaPlayerManager private constructor(
         preparePlayer()
 
         result.success(true)
+    }
+
+    fun setPlayerView(args: Map<String, Any>) {
+        playerView = PlayerView(context).apply {
+            player = this@ImaPlayerManager.player
+            setShowNextButton(false)
+            setShowPreviousButton(false)
+            setShowShuffleButton(false)
+            controllerAutoShow = args["controller_auto_show"] as Boolean? ?: true
+            controllerHideOnTouch = args["controller_hide_on_touch"] as Boolean? ?: true
+            useController = args["show_playback_controls"] as Boolean? ?: true
+        }
+    }
+
+
+    fun getPlayerView(): PlayerView {
+        if (playerView == null) {
+            playerView = PlayerView(context).apply {
+                player = this@ImaPlayerManager.player
+                setShowNextButton(false)
+                setShowPreviousButton(false)
+                setShowShuffleButton(false)
+                controllerAutoShow = true
+                controllerHideOnTouch = true
+                useController = true
+            }
+        }
+        return playerView!!
+    }
+
+    // 确保在适当的时机释放PlayerView
+    fun releasePlayerView() {
+        playerView?.player = null
+        playerView = null
     }
 
     override fun onPlaybackStateChanged(playbackState: Int) {

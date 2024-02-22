@@ -18,26 +18,16 @@ internal class ImaPlayerView(
     private var messenger: BinaryMessenger
 ) : PlatformView, Player.Listener {
     // Video Player
-    private val playerView: PlayerView
+    private val playerView: PlayerView = ImaPlayerManager.getInstance(context, messenger).getPlayerView()
 
     override fun getView(): View {
         return playerView
     }
 
     override fun dispose() {
-        playerView.removeAllViews()
-    }
-
-    init {
-        playerView = PlayerView(context)
-        playerView.setShowNextButton(false)
-        playerView.setShowPreviousButton(false)
-        playerView.setShowShuffleButton(false)
-        playerView.controllerAutoShow = args["controller_auto_show"] as Boolean? ?: true
-        playerView.controllerHideOnTouch = args["controller_hide_on_touch"] as Boolean? ?: true
-        playerView.useController = args["show_playback_controls"] as Boolean? ?: true
-        val imaManager = ImaPlayerManager.getInstance(context, messenger)
-        playerView.player = imaManager.player
+        println("---play playview dispose")
+        // 在适当的时机释放PlayerView
+        ImaPlayerManager.getInstance(context, messenger).releasePlayerView()
     }
 }
 

@@ -52,7 +52,24 @@ class ImaPlayerController {
     };
     final result =
         await _methodChannel?.invokeMethod('initialize', creationParams);
+    if (result == true) {
+      initPlayView();
+    }
     return result ?? false;
+  }
+
+  Future<void> initPlayView() async {
+    final creationParams = {
+      'ima_tag': imaTag,
+      'is_muted': options.muted,
+      'is_mixed': options.isMixWithOtherMedia,
+      'auto_play': options.autoPlay,
+      'video_url': videoUrl,
+      'controller_auto_show': options.controllerAutoShow,
+      'controller_hide_on_touch': options.controllerHideOnTouch,
+      'show_playback_controls': options.showPlaybackControls,
+    };
+    _methodChannel?.invokeMethod('initPlayView', creationParams);
   }
 
   Future<bool> setMediaUrl({String? videoUrl}) async {

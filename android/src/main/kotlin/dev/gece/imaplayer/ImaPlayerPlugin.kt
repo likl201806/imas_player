@@ -36,6 +36,10 @@ class ImaPlayerPlugin : FlutterPlugin {
                     val args = call.arguments as Map<String, Any>?
                     imasPlayer?.initialize(args, result)
                 }
+                "initPlayView" -> {
+                    val args = call.arguments as Map<String, Any>
+                    imasPlayer?.setPlayerView(args)
+                }
                 "play" -> {
                     val videoUrl = call.arguments as String?
                     imasPlayer?.play(videoUrl, result)
