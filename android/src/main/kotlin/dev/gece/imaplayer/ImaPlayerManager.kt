@@ -183,6 +183,7 @@ class ImaPlayerManager private constructor(
 
     public fun stop(result: MethodChannel.Result) {
         player.stop()
+        player.clearMediaItems()
         result.success(true)
     }
 
