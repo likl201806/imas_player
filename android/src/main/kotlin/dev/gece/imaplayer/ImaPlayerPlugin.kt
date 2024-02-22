@@ -4,7 +4,6 @@ import android.os.Build
 import android.content.Context
 import androidx.annotation.NonNull
 import androidx.annotation.RequiresApi
-import com.google.android.exoplayer2.ExoPlayer
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.EventChannel
@@ -23,13 +22,11 @@ class ImaPlayerPlugin : FlutterPlugin {
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onAttachedToEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
+        binding.platformViewRegistry.registerViewFactory(
+            "gece.dev/imaplayer_view", ImaPlayerViewFactory(binding.binaryMessenger)
+        )
         // 获取 ImaPlayerManager 实例
         imasPlayer = ImaPlayerManager.getInstance(binding.applicationContext, binding.binaryMessenger)
-        val playerFactory = ImaPlayerViewFactory(binding.binaryMessenger)
-        playerFactory.playerManager = imasPlayer as ImaPlayerManager
-        binding.platformViewRegistry.registerViewFactory(
-            "gece.dev/imaplayer_view", playerFactory
-        )
         // 注册 Flutter 插件和 MethodChannel
         methodChannel = MethodChannel(binding.binaryMessenger, "gece.dev/imas_player_method_channel")
         methodChannel?.setMethodCallHandler { call, result ->
@@ -86,17 +83,11 @@ class ImaPlayerPlugin : FlutterPlugin {
 
 class ImaPlayerViewFactory(private val messenger: BinaryMessenger) :
     PlatformViewFactory(StandardMessageCodec.INSTANCE) {
-    public lateinit var playerManager: ImaPlayerManager
+
     @RequiresApi(Build.VERSION_CODES.N)
     override fun create(context: Context, id: Int, args: Any?): PlatformView {
-        if (playerManager.playView != null){
-            return playerManager.playView
-        }else{
-            val playView = ImaPlayerView(
-                context, id, args as Map<String, Any>, messenger
-            )
-            playerManager.playView = playView
-            return playView
-        }
+        return ImaPlayerView(
+            context, id, args as Map<String, Any>, messenger
+        )
     }
 }

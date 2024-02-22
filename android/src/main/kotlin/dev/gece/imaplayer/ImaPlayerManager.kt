@@ -31,7 +31,6 @@ class ImaPlayerManager private constructor(
 
     // Video Player
     public lateinit var player: ExoPlayer
-    public var playView: ImaPlayerView? = null
     private lateinit var imaPlayerEqualizer: ImaPlayerEqualizer
 
     // Passed arguments

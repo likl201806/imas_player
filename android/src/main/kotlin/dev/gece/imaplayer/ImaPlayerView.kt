@@ -11,7 +11,7 @@ import io.flutter.plugin.platform.PlatformView
 
 
 @RequiresApi(Build.VERSION_CODES.N)
-class ImaPlayerView(
+internal class ImaPlayerView(
     private var context: Context,
     private var id: Int,
     private var args: Map<String, Any>,
