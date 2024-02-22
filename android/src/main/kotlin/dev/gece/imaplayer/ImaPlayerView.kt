@@ -26,7 +26,7 @@ class ImaPlayerView(
 
     override fun dispose() {
         println("---player playerView dispose")
-//        playerView.removeAllViews()
+        playerView.removeAllViews()
     }
 
     init {
