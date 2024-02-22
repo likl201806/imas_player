@@ -89,12 +89,11 @@ class ImaPlayerViewFactory(private val messenger: BinaryMessenger) :
     public lateinit var playerManager: ImaPlayerManager
     @RequiresApi(Build.VERSION_CODES.N)
     override fun create(context: Context, id: Int, args: Any?): PlatformView {
-        val localPlayView = playerManager.playView
-        if (localPlayView != null) {
-            return localPlayView
-        } else {
+        if (playerManager.playView != null){
+            return playerManager.playView
+        }else{
             val playView = ImaPlayerView(
-                context, id, args as? Map<String, Any> ?: emptyMap(), messenger
+                context, id, args as Map<String, Any>, messenger
             )
             playerManager.playView = playView
             return playView
