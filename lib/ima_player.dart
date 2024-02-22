@@ -75,20 +75,21 @@ class _ImaPlayerState extends State<ImaPlayer> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
+    print('---player init __ImaPlayerView');
     WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    print('---ima dispose __ImaPlayerView');
+    print('---player dispose __ImaPlayerView');
     super.dispose();
   }
 
   // final ImaPlayerOptions options;
   @override
   Widget build(BuildContext context) {
-    print('---ima begin _ImaPlayerView');
+    print('---player build _ImaPlayerView');
     return _ImaPlayerView(
       controller: widget.controller,
       gestureRecognizers: widget.gestureRecognizers,
