@@ -25,10 +25,12 @@ internal class ImaPlayerView(
     }
 
     override fun dispose() {
+        println("---player playerView dispose")
         playerView.removeAllViews()
     }
 
     init {
+        println("---player playerView init")
         playerView = PlayerView(context)
         playerView.setShowNextButton(false)
         playerView.setShowPreviousButton(false)
