@@ -242,8 +242,9 @@ class ImaPlayerManager private constructor(
             var bandLevel = args["bandLevel"] as Int
             imaPlayerEqualizer.setBandLevel(index.toShort(), bandLevel.toShort())
             result.success(true)
+        }else{
+            result.success(false);
         }
-        result.success(false);
     }
 
     public fun getVideoInfo(result: MethodChannel.Result) {
